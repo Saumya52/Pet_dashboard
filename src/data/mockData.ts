@@ -13,13 +13,14 @@ export const customers: Customer[] = [
 
 export const pets: Pet[] = [
   
-  { id: 2, name: 'Bella', type: 'Cat', avatar: 'BL', ownerId: 2, breed: '', age: '' },
-  { id: 3, name: 'Charlie', type: 'Dog', avatar: 'CH', ownerId: 3, breed: '', age: '' },
-  { id: 4, name: 'Daisy', type: 'Dog', avatar: 'DS', ownerId: 4, breed: '', age: '' },
-  { id: 5, name: 'Luna', type: 'Cat', avatar: 'LN', ownerId: 5, breed: '', age: '' },
-  { id: 6, name: 'Rocky', type: 'Dog', avatar: 'RK', ownerId: 6, breed: '', age: '' },
-  { id: 7, name: 'Milo', type: 'Cat', avatar: 'ML', ownerId: 7, breed: '', age: '' },
-  { id: 8, name: 'Bailey', type: 'Dog', avatar: 'BY', ownerId: 8, breed: '', age: '' },
+  { id: 1, name: 'Bella', type: 'Cat', avatar: 'BL', ownerId: 1, breed: '', age: '4' },
+  { id: 2, name: 'Bella', type: 'Cat', avatar: 'BL', ownerId: 2, breed: '', age: '4' },
+  { id: 3, name: 'Charlie', type: 'Dog', avatar: 'CH', ownerId: 3, breed: '', age: '5' },
+  { id: 4, name: 'Daisy', type: 'Dog', avatar: 'DS', ownerId: 4, breed: '', age: '6' },
+  { id: 5, name: 'Luna', type: 'Cat', avatar: 'LN', ownerId: 5, breed: '', age: '21' },
+  { id: 6, name: 'Rocky', type: 'Dog', avatar: 'RK', ownerId: 6, breed: '', age: '13' },
+  { id: 7, name: 'Milo', type: 'Cat', avatar: 'ML', ownerId: 7, breed: '', age: '5' },
+  { id: 8, name: 'Bailey', type: 'Dog', avatar: 'BY', ownerId: 8, breed: '', age: '14' },
 ];
 
 export const veterinarians: Veterinarian[] = [
