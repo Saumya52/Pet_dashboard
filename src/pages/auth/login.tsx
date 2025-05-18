@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEye, faEyeSlash, faKey, faMobileAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import './Login.css';
+import './login.css';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
