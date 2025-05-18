@@ -1,0 +1,131 @@
+/* Login page specific styles */
+.login-page {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(-45deg, #C3F53C, #1A1A1A, #000000, #1A1A1A);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.login-container {
+  background: #1A1A1A;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 #C3F53C50;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid #C3F53C;
+  width: 320px;
+  text-align: center;
+  color: #C3F53C;
+}
+
+.material-input {
+  position: relative;
+  margin: 20px 0;
+}
+
+.material-input input {
+  width: 100%;
+  padding: 14px 10px 6px 10px;
+  border: none;
+  border-bottom: 2px solid white;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.material-input label {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  color: #ccc;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.3s ease all;
+}
+
+.material-input input:focus {
+  border-bottom: 2px solid #ffffff;
+}
+
+.material-input input:focus + label,
+.material-input input:not(:placeholder-shown):valid + label {
+  top: -10px;
+  left: 5px;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: transparent;
+}
+
+.btn-three {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.btn-three::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
+  transform: scale(0);
+  transition: transform 0.5s ease;
+  z-index: 1;
+}
+
+.btn-three:hover::before {
+  transform: scale(1);
+}
+
+.auth-link {
+  position: relative;
+  color: #C3F53C;
+  text-decoration: none;
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+.auth-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #C3F53C;
+  transition: width 0.3s ease;
+}
+
+.auth-link:hover::after {
+  width: 100%;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
