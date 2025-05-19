@@ -26,7 +26,7 @@ const Login: React.FC = () => {
     
     try {
       // For demo purposes, using dummy validation
-      if (formData.identifier === 'admin' && formData.password === 'password') {
+      if (formData.identifier === 'admin' && formData.password === 'admin') {
         localStorage.setItem('accessToken', 'dummy-token');
         toast.success('Login successful!');
         navigate('/dashboard');
