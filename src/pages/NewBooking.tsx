@@ -11,6 +11,7 @@ interface BookingFormData {
   petName: string;
   petType: string;
   vetId: string;
+  symptoms: string[];
 }
 
 const NewBooking: React.FC = () => {
@@ -22,9 +23,11 @@ const NewBooking: React.FC = () => {
     petName: '',
     petType: '',
     vetId: '',
+    symptoms: [],
   });
 
   const [loading, setLoading] = useState(false);
+  const [symptomInput, setSymptomInput] = useState('');
 
   const vetTypes = [
     'General Checkup',
@@ -57,6 +60,23 @@ const NewBooking: React.FC = () => {
       [name]: value,
     }));
   };
+  const handleAddSymptom = () => {
+    const trimmed = symptomInput.trim();
+    if (trimmed && !formData.symptoms.includes(trimmed)) {
+      setFormData((prev) => ({
+        ...prev,
+        symptoms: [...prev.symptoms, trimmed],
+      }));
+      setSymptomInput('');
+    }
+  };
+  const handleRemoveSymptom = (symptom: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      symptoms: prev.symptoms.filter((s) => s !== symptom),
+    }));
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,6 +104,7 @@ const NewBooking: React.FC = () => {
         petName: '',
         petType: '',
         vetId: '',
+        symptoms: [],
       });
     } catch (error) {
       toast.error('Failed to create booking');
@@ -259,6 +280,48 @@ const NewBooking: React.FC = () => {
               </select>
             </div>
           </div>
+          <div>
+            <label
+              htmlFor="symptoms"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Symptoms
+            </label>
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                id="symptomInput"
+                value={symptomInput}
+                onChange={(e) => setSymptomInput(e.target.value)}
+                placeholder="Enter symptom"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              />
+              <Button type="button" variant="outline" onClick={handleAddSymptom}>
+                Add
+              </Button>
+            </div>
+
+            {formData.symptoms.length > 0 && (
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {formData.symptoms.map((symptom) => (
+                  <li
+                    key={symptom}
+                    className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm flex items-center space-x-2"
+                  >
+                    <span>{symptom}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSymptom(symptom)}
+                      className="ml-2 text-red-500 hover:text-red-700"
+                    >
+                      &times;
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
 
           <div>
             <label

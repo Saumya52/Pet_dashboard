@@ -52,7 +52,9 @@ const Dashboard: React.FC = () => {
   };
 
   const handleNewBooking = () => {
-    alert('New booking form would open here');
+    window.location.hash = '#new-booking';
+    const event = new CustomEvent('navigate', { detail: 'new-booking' });
+    window.dispatchEvent(event);
   };
 
   const statsCards = [
