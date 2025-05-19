@@ -1,12 +1,13 @@
 import React from 'react';
-import { LayoutDashboard, Calendar, Users, UserRound, UserPlus } from 'lucide-react';
+import { LayoutDashboard, Calendar, Users, UserRound, UserPlus, LogOut } from 'lucide-react';
 
 interface SidebarProps {
   activeLink: string;
   onNavigate: (link: string) => void;
+  onLogout: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeLink, onNavigate }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeLink, onNavigate, onLogout }) => {
   const links = [
     {
       id: 'dashboard',
@@ -55,6 +56,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeLink, onNavigate }) => {
           ))}
         </ul>
       </nav>
+      <div className="p-4 border-t border-gray-200">
+        <button
+          onClick={onLogout}
+          className="w-full flex items-center space-x-3 px-4 py-3 rounded-md text-red-600 hover:bg-red-50 transition-colors duration-200"
+        >
+          <LogOut size={20} />
+          <span className="font-medium">Logout</span>
+        </button>
+      </div>
     </div>
   );
 };

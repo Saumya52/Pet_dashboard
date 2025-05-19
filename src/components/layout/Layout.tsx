@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Dashboard from '../../pages/Dashboard';
 import VeterinaryBookings from '../../pages/VeterinaryBookings';
@@ -10,12 +11,14 @@ import { Toaster } from 'react-hot-toast';
 import AddClient from '../../pages/AddClient';
 import ClientProfile from '../../pages/ClientProfile';
 import VetProfile from '../../pages/VetProfile';
-
+import { useAuthStore } from '../../store/authStore';
 
 const Layout: React.FC = () => {
+  const navigate = useNavigate();
+  const logout = useAuthStore(state => state.logout);
   const [activeLink, setActiveLink] = useState('dashboard');
   const [selectedProfileId, setSelectedProfileId] = useState<number | null>(null);
-  // ✅ Listen for custom navigation events (e.g., from the New Booking button)
+
   useEffect(() => {
     const handleNavigation = (e: Event) => {
       const customEvent = e as CustomEvent;
@@ -30,6 +33,11 @@ const Layout: React.FC = () => {
       window.removeEventListener('navigate', handleNavigation);
     };
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   const renderContent = () => {
     switch (activeLink) {
@@ -69,7 +77,6 @@ const Layout: React.FC = () => {
             setActiveLink('client-profile');
           }} />
         );
-
       case 'add-client':
         return <AddClient />;
       default:
@@ -79,7 +86,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-gray-50 text-gray-800">
-      <Sidebar activeLink={activeLink} onNavigate={setActiveLink} />
+      <Sidebar activeLink={activeLink} onNavigate={setActiveLink} onLogout={handleLogout} />
       <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
         {renderContent()}
       </main>
