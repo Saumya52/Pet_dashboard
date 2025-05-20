@@ -11,27 +11,25 @@ interface VetProfileProps {
 const VetProfile: React.FC<VetProfileProps> = ({ vetId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [vet, setVet] = useState<Veterinarian>({
-    id: vetId,
+    id: vetId.toString(),
     name: "Dr. Smith",
     email: "drsmith@example.com",
     avatar: "DS",
-    specialization: "General Practice",
+    specialization: ["General Practice"],
     education: ["DVM - Veterinary School", "MSc - Animal Science"],
     experience: 8,
-    petReview: 4.8,
     photoId: "vet123",
     about: "Experienced veterinarian specializing in small animal medicine with a focus on preventive care.",
     clinicAddress: "456 Vet Clinic St, Medical District, City 12345",
     availableTime: "Mon-Fri: 9:00 AM - 5:00 PM",
-    listedOnPetCareSince: "2020-01-15",
-    mbbs: "MBBS - Medical University",
-    topHospitalAssociations: ["Central Pet Hospital", "City Veterinary Clinic"]
+    createdAt: "2020-01-15",
   });
 
   if (isEditing) {
     return <EditVet vetId={vetId} onCancel={() => setIsEditing(false)} />;
   }
-    const handleBack = () => {
+
+  const handleBack = () => {
     const event = new CustomEvent('navigate', { detail: 'vets' });
     window.dispatchEvent(event);
   };
@@ -39,13 +37,12 @@ const VetProfile: React.FC<VetProfileProps> = ({ vetId }) => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-        
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center">
             <Avatar initials={vet.avatar} size="lg" />
             <div className="ml-6">
               <h1 className="text-2xl font-bold text-gray-800">{vet.name}</h1>
-              <p className="text-emerald-600">{vet.specialization}</p>
+              <p className="text-emerald-600">{vet.specialization.join(', ')}</p>
             </div>
           </div>
         </div>
@@ -70,10 +67,6 @@ const VetProfile: React.FC<VetProfileProps> = ({ vetId }) => {
                   ))}
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-500">MBBS</label>
-                  <p className="text-gray-800">{vet.mbbs}</p>
-                </div>
-                <div>
                   <label className="text-sm font-medium text-gray-500">Available Time</label>
                   <p className="text-gray-800">{vet.availableTime}</p>
                 </div>
@@ -81,15 +74,19 @@ const VetProfile: React.FC<VetProfileProps> = ({ vetId }) => {
                   <label className="text-sm font-medium text-gray-500">Clinic Address</label>
                   <p className="text-gray-800">{vet.clinicAddress}</p>
                 </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Member Since</label>
+                  <p className="text-gray-800">{new Date(vet.createdAt).toLocaleDateString()}</p>
+                </div>
               </div>
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-gray-800 mb-4">Hospital Associations</h2>
+              <h2 className="text-lg font-semibold text-gray-800 mb-4">Specializations</h2>
               <div className="space-y-3">
-                {vet.topHospitalAssociations?.map((hospital, index) => (
+                {vet.specialization.map((spec, index) => (
                   <div key={index} className="bg-gray-50 rounded-lg p-3">
-                    <p className="text-gray-800">{hospital}</p>
+                    <p className="text-gray-800">{spec}</p>
                   </div>
                 ))}
               </div>

@@ -11,6 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import AddClient from '../../pages/AddClient';
 import ClientProfile from '../../pages/ClientProfile';
 import VetProfile from '../../pages/VetProfile';
+import PetProfile from '../../pages/PetProfile';
 import { useAuthStore } from '../../store/authStore';
 
 const Layout: React.FC = () => {
@@ -63,6 +64,12 @@ const Layout: React.FC = () => {
         );
       case 'add-vet':
         return <AddVeterinarian />;
+      case 'pet-profile':
+        return selectedProfileId ? (
+          <PetProfile petId={selectedProfileId.toString()} />
+        ) : (
+          <Dashboard />
+        );
       case 'clients':
         return <Clients onViewProfile={(id) => {
           setSelectedProfileId(id);
@@ -70,7 +77,7 @@ const Layout: React.FC = () => {
         }} />;
       case 'client-profile':
         return selectedProfileId ? (
-          <ClientProfile clientId={selectedProfileId} />
+          <ClientProfile clientId={selectedProfileId.toString()} />
         ) : (
           <Clients onViewProfile={(id) => {
             setSelectedProfileId(id);

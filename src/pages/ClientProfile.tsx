@@ -5,7 +5,7 @@ import EditClient from './EditClient';
 import { Customer } from '../types';
 
 interface ClientProfileProps {
-  clientId: number;
+  clientId: string;
 }
 
 const ClientProfile: React.FC<ClientProfileProps> = ({ clientId }) => {
@@ -15,19 +15,24 @@ const ClientProfile: React.FC<ClientProfileProps> = ({ clientId }) => {
     name: "John Doe",
     email: "john@example.com",
     phone: "+1 (555) 000-0000",
-    address: "123 Main St, City, State 12345",
     avatar: "JD",
     pets: [
-      { id: 1, name: "Max", type: "Dog", breed: "Golden Retriever", age: "3", avatar: "MX", ownerId: clientId },
-      { id: 2, name: "Luna", type: "Cat", breed: "Persian", age: "2", avatar: "LN", ownerId: clientId }
+      { id: "1", name: "Max", type: "Dog", breed: "Golden Retriever", age: "3", avatar: "MX", ownerId: clientId },
+      { id: "2", name: "Luna", type: "Cat", breed: "Persian", age: "2", avatar: "LN", ownerId: clientId }
     ]
   });
 
   if (isEditing) {
-    return <EditClient clientId={clientId} onCancel={() => setIsEditing(false)} />;
+    return <EditClient clientId={Number(clientId)} onCancel={() => setIsEditing(false)} />;
   }
+
   const handleBack = () => {
     const event = new CustomEvent('navigate', { detail: 'clients' });
+    window.dispatchEvent(event);
+  };
+
+  const handleViewPet = (petId: string) => {
+    const event = new CustomEvent('navigate', { detail: 'pet-profile', petId });
     window.dispatchEvent(event);
   };
 
@@ -57,10 +62,6 @@ const ClientProfile: React.FC<ClientProfileProps> = ({ clientId }) => {
                   <label className="text-sm font-medium text-gray-500">Phone</label>
                   <p className="text-gray-800">{client.phone}</p>
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-500">Address</label>
-                  <p className="text-gray-800">{client.address}</p>
-                </div>
               </div>
             </div>
 
@@ -69,13 +70,22 @@ const ClientProfile: React.FC<ClientProfileProps> = ({ clientId }) => {
               <div className="space-y-4">
                 {client.pets?.map((pet) => (
                   <div key={pet.id} className="bg-gray-50 rounded-lg p-4">
-                    <div className="flex items-center">
-                      <Avatar initials={pet.avatar} size="sm" />
-                      <div className="ml-3">
-                        <h3 className="font-medium text-gray-800">{pet.name}</h3>
-                        <p className="text-sm text-gray-600">{pet.type} - {pet.breed}</p>
-                        <p className="text-sm text-gray-500">Age: {pet.age} years</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Avatar initials={pet.avatar} size="sm" />
+                        <div className="ml-3">
+                          <h3 className="font-medium text-gray-800">{pet.name}</h3>
+                          <p className="text-sm text-gray-600">{pet.type} - {pet.breed}</p>
+                          <p className="text-sm text-gray-500">Age: {pet.age} years</p>
+                        </div>
                       </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleViewPet(pet.id)}
+                      >
+                        View Profile
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -93,7 +103,7 @@ const ClientProfile: React.FC<ClientProfileProps> = ({ clientId }) => {
 
         <div className="p-6 bg-gray-50 border-t border-gray-100">
           <div className="flex justify-end space-x-4">
-            <Button variant="outline" onClick={() => handleBack()}>
+            <Button variant="outline" onClick={handleBack}>
               Back
             </Button>
             <Button variant="primary" onClick={() => setIsEditing(true)}>

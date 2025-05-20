@@ -1,40 +1,43 @@
 export interface Customer {
-  id: number;
-  name: string;
-  avatar: string;
+  id: string; // Changed from number to string for MongoDB _id
+  name: string; // Mapped from user_name
+  avatar: string; // Mapped from profile_pic
   email: string;
   phone: string;
-  address: string;
   pets?: Pet[];
   appointments?: Appointment[];
 }
 
 export interface Pet {
-  id: number;
-  name: string;
+  id: string; // Changed from number to string for MongoDB _id
+  name: string; // Mapped from pet_name
   type: string;
-  avatar: string;
-  ownerId: number;
+  avatar: string; // Mapped from pet_image
+  ownerId: string; // Changed from number to string for MongoDB _id
   breed: string;
   age: string;
+  owner?: Customer; // Added for relationship
+  appointments?: Appointment[];
+  medicalHistory?: {
+    date: string;
+    description: string;
+    treatment: string;
+  }[];
 }
 
 export interface Veterinarian {
-  id: number;
+  id: string; // Changed to string since it comes from MongoDB _id
   name: string;
   email: string;
-  avatar: string;
-  specialization: string;
-  education?: string[];
-  experience?: number;
-  petReview?: number;
-  photoId?: string;
-  about?: string;
-  clinicAddress?: string;
-  availableTime?: string;
-  listedOnPetCareSince?: string;
-  mbbs?: string;
-  topHospitalAssociations?: string[];
+  avatar: string; // This will be mapped from profile_pic
+  specialization: string[];
+  education: string[];
+  experience: number;
+  photoId: string; // Mapped from firebase_uid
+  about: string;
+  clinicAddress: string; // Mapped from address
+  availableTime: string; // Computed from availability array
+  createdAt: string; // Replaces listedOnPetCareSince
   appointments?: Appointment[];
   clients?: Customer[];
   pets?: Pet[];
@@ -42,10 +45,10 @@ export interface Veterinarian {
 }
 
 export interface Appointment {
-  id: number;
-  customerId: number;
-  petId: number;
-  vetId: number;
+  id: string; // Changed from number to string for MongoDB _id
+  customerId: string; // Changed from number to string for MongoDB _id
+  petId: string; // Changed from number to string for MongoDB _id
+  vetId: string; // Changed from number to string for MongoDB _id
   date: string;
   time: string;
   type: string;
